@@ -1,14 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="200" prefWidth="320" xmlns:fx="http://javafx.com/fxml/1" fx:controller="chinchin.weather.FXMLDocumentController">
-    <children>
-        <Button layoutX="126" layoutY="90" text="Click Me!" onAction="#handleButtonAction" fx:id="button" />
-        <Label layoutX="126" layoutY="120" minHeight="16" minWidth="69" fx:id="label" />
-    </children>
+
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="chinchin.weather.FXMLDocumentController">
+   <children>
+      <Pane prefHeight="350.0" prefWidth="900.0">
+         <children>
+            <TextField fx:id="adress" layoutX="354.0" layoutY="158.0" promptText="Insert city or location....">
+               <font>
+                  <Font name="MyriadPro-Regular" size="17.0" />
+               </font>
+            </TextField>
+            <Button fx:id="ok" layoutX="562.0" layoutY="158.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="34.0" prefWidth="50.0" text="OK" />
+            <Label fx:id="label" layoutX="360.0" layoutY="216.0" prefHeight="34.0" prefWidth="181.0">
+               <font>
+                  <Font name="MyriadPro-Regular" size="11.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+   </children>
 </AnchorPane>
