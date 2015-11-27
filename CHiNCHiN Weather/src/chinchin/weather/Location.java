@@ -11,6 +11,7 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import javafx.scene.image.ImageView;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -44,6 +45,8 @@ public class Location {
     private static String PRESSURE ;
     private static String VISIBILITY ;
     private static String UV_INDEX ;
+    private static String IMG;
+    Document doc ;
 
     public Location(String adress) {
         this.ADDRESS = adress;
@@ -81,10 +84,10 @@ public class Location {
             return false ; 
         } 
     }
-    public boolean getForecast() throws ParserConfigurationException, SAXException, IOException, XPathExpressionException{
+    public boolean getTodayForecast() throws ParserConfigurationException, SAXException, IOException, XPathExpressionException{
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
-        Document doc = builder.parse("http://api.wunderground.com/api/2fe535a12fd3638f/forecast/conditions/q/"+ LAT +","+ LONG +".xml");
+        doc = builder.parse("http://api.wunderground.com/api/2fe535a12fd3638f/forecast/conditions/q/"+ LAT +","+ LONG +".xml");
         XPathFactory xPathfactory = XPathFactory.newInstance();
         XPath xpath = xPathfactory.newXPath();
         XPathExpression expr = xpath.compile("/response/current_observation/observation_time");
@@ -109,7 +112,91 @@ public class Location {
         VISIBILITY = (String) expr.evaluate(doc, XPathConstants.STRING);
         expr = xpath.compile("/response/current_observation/UV");
         UV_INDEX = (String) expr.evaluate(doc, XPathConstants.STRING);
+        expr = xpath.compile("/response/current_observation/icon_url");
+        IMG = (String) expr.evaluate(doc, XPathConstants.STRING);
         return true;
+    }
+    
+    public boolean getFutureForecast() throws ParserConfigurationException, SAXException, IOException
+    {
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder = factory.newDocumentBuilder();
+        doc = builder.parse("http://api.wunderground.com/api/2fe535a12fd3638f/forecast/conditions/q/"+ LAT +","+ LONG +".xml");
+        XPathFactory xPathfactory = XPathFactory.newInstance();
+        XPath xpath = xPathfactory.newXPath();
+        return true;
+    }
+
+    public static String getIMG() {
+        return IMG;
+    }
+
+    public static String getFORMATTED_ADDRESS() {
+        return FORMATTED_ADDRESS;
+    }
+
+    public static String getOBSERVATION_TIME() {
+        return OBSERVATION_TIME;
+    }
+
+    public static boolean isSTATUS() {
+        return STATUS;
+    }
+
+    public static String getSHORT_NAME() {
+        return SHORT_NAME;
+    }
+
+    public static String getADDRESS() {
+        return ADDRESS;
+    }
+
+    public static String getLONG() {
+        return LONG;
+    }
+
+    public static String getLAT() {
+        return LAT;
+    }
+
+    public static String getTEMPRETURE_C() {
+        return TEMPRETURE_C;
+    }
+
+    public static String getTEMPRETURE_F() {
+        return TEMPRETURE_F;
+    }
+
+    public static String getWIND_MPH() {
+        return WIND_MPH;
+    }
+
+    public static String getHUMIDITY() {
+        return HUMIDITY;
+    }
+
+    public static String getDEW_POINT_F() {
+        return DEW_POINT_F;
+    }
+
+    public static String getDEW_POINT_C() {
+        return DEW_POINT_C;
+    }
+
+    public static String getPRESSURE() {
+        return PRESSURE;
+    }
+
+    public static String getVISIBILITY() {
+        return VISIBILITY;
+    }
+
+    public static String getUV_INDEX() {
+        return UV_INDEX;
+    }
+
+    public static String getWEATHER() {
+        return WEATHER;
     }
 
     @Override
