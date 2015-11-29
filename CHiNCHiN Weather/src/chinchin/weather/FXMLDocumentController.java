@@ -5,14 +5,22 @@
  */
 package chinchin.weather;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.Authenticator;
 import java.net.MalformedURLException;
+import java.net.PasswordAuthentication;
 import java.net.URL;
+import java.net.URLConnection;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -33,7 +41,6 @@ public class FXMLDocumentController implements Initializable {
     private static String STATUS ;
     private static String FORMATTED_ADDRESS ;
     private static String SHORT_NAME ;
-    private static final String ADDRESS = "Australia";
     private static String LONG ;
     private static String LAT ;
     
@@ -64,8 +71,7 @@ public class FXMLDocumentController implements Initializable {
         {   
             
             //FADE OFF
-            FadeTransition fadeTransitionOff 
-                        = new FadeTransition(Duration.millis(1000), forecast);
+            FadeTransition fadeTransitionOff = new FadeTransition(Duration.millis(1000), forecast);
             fadeTransitionOff.setFromValue(1.0);
             fadeTransitionOff.setToValue(0.0);
             fadeTransitionOff.play();
@@ -84,11 +90,18 @@ public class FXMLDocumentController implements Initializable {
                     weatherImg.setImage(image);
                     tempreatureC.setText(City.getTEMPRETURE_C());
                     wind.setText(City.getWIND_MPH());
+                    wind.setAlignment(Pos.CENTER_RIGHT);
                     humidity.setText(City.getHUMIDITY());
+                    humidity.setAlignment(Pos.CENTER_RIGHT);
                     dewPoint.setText(City.getDEW_POINT_C());
+                    dewPoint.setAlignment(Pos.CENTER_RIGHT);
                     pressure.setText(City.getPRESSURE());
+                    pressure.setAlignment(Pos.CENTER_RIGHT);
                     visibility.setText(City.getPRESSURE());
+                    visibility.setAlignment(Pos.CENTER_RIGHT);
                     uvIndex.setText(City.getUV_INDEX());
+                    uvIndex.setAlignment(Pos.CENTER_RIGHT);
+                    City.getFutureForecast();
                 }
                 
                 //FADE ON
@@ -118,7 +131,7 @@ public class FXMLDocumentController implements Initializable {
                 @Override
                 protected PasswordAuthentication getPasswordAuthentication() {
                     
-                    return new PasswordAuthentication("*********","**********".toCharArray());
+                    return new PasswordAuthentication("********","**********".toCharArray());
                 }
             });
             

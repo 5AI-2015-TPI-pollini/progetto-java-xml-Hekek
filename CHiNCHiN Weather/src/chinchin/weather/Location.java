@@ -45,8 +45,14 @@ public class Location {
     private static String PRESSURE ;
     private static String VISIBILITY ;
     private static String UV_INDEX ;
-    private static String IMG;
-    Document doc ;
+    private static String ICON;
+    private static String icon[] = new String[5] ;
+    private static String conditions[] = new String[5] ;
+    private static String temperatureCHigh[] = new String[5] ;
+    private static String temperatureCLow[] = new String[5] ;
+    private static String days[] = new String[5] ;
+    
+    
 
     public Location(String adress) {
         this.ADDRESS = adress;
@@ -87,7 +93,7 @@ public class Location {
     public boolean getTodayForecast() throws ParserConfigurationException, SAXException, IOException, XPathExpressionException{
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
-        doc = builder.parse("http://api.wunderground.com/api/2fe535a12fd3638f/forecast/conditions/q/"+ LAT +","+ LONG +".xml");
+        Document doc = builder.parse("http://api.wunderground.com/api/2fe535a12fd3638f/forecast/conditions/q/"+ LAT +","+ LONG +".xml");
         XPathFactory xPathfactory = XPathFactory.newInstance();
         XPath xpath = xPathfactory.newXPath();
         XPathExpression expr = xpath.compile("/response/current_observation/observation_time");
@@ -113,22 +119,37 @@ public class Location {
         expr = xpath.compile("/response/current_observation/UV");
         UV_INDEX = (String) expr.evaluate(doc, XPathConstants.STRING);
         expr = xpath.compile("/response/current_observation/icon_url");
-        IMG = (String) expr.evaluate(doc, XPathConstants.STRING);
+        ICON = (String) expr.evaluate(doc, XPathConstants.STRING);
         return true;
     }
     
-    public boolean getFutureForecast() throws ParserConfigurationException, SAXException, IOException
+    public boolean getFutureForecast() throws ParserConfigurationException, SAXException, IOException, XPathExpressionException
     {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
-        doc = builder.parse("http://api.wunderground.com/api/2fe535a12fd3638f/forecast/conditions/q/"+ LAT +","+ LONG +".xml");
+        Document doc = builder.parse("http://api.wunderground.com/api/2fe535a12fd3638f/forecast/conditions/q/"+ LAT +","+ LONG +".xml");
         XPathFactory xPathfactory = XPathFactory.newInstance();
         XPath xpath = xPathfactory.newXPath();
+        for ( int i = 1 ; i < 5 ; i++ )
+        {
+            XPathExpression expr = xpath.compile("/response/forecast/simpleforecast/forecastdays/forecastday["+i+"]/date/weekday");
+            days[i]  = (String) expr.evaluate(doc, XPathConstants.STRING);
+            expr = xpath.compile("/response/forecast/simpleforecast/forecastdays/forecastday["+i+"]/high/celsius");
+            temperatureCHigh[i] = (String) expr.evaluate(doc, XPathConstants.STRING);
+            expr = xpath.compile("/response/forecast/simpleforecast/forecastdays/forecastday["+i+"]/low/celsius");
+            temperatureCLow[i] = (String) expr.evaluate(doc, XPathConstants.STRING);
+            expr = xpath.compile("/response/forecast/simpleforecast/forecastdays/forecastday["+i+"]/icon_url");
+            icon[i] = (String) expr.evaluate(doc, XPathConstants.STRING);
+            expr = xpath.compile("/response/forecast/simpleforecast/forecastdays/forecastday["+i+"]/conditions");
+            conditions[i] = (String) expr.evaluate(doc, XPathConstants.STRING);
+            System.out.println("Day: "+ days[i] +" TempCHigh: "+temperatureCHigh[i] +" TempClow: "+temperatureCLow[i]+
+                    " icon: "+icon[i]+ " conditions: "+conditions[i]);
+        }
         return true;
     }
 
     public static String getIMG() {
-        return IMG;
+        return ICON;
     }
 
     public static String getFORMATTED_ADDRESS() {
