@@ -51,6 +51,9 @@ public class Location {
     private static String temperatureCHigh[] = new String[5] ;
     private static String temperatureCLow[] = new String[5] ;
     private static String days[] = new String[5] ;
+    private static String precip[] = new String[5] ;
+    private static String wind[] = new String[5] ;
+
     
     
 
@@ -142,10 +145,20 @@ public class Location {
             icon[i] = (String) expr.evaluate(doc, XPathConstants.STRING);
             expr = xpath.compile("/response/forecast/simpleforecast/forecastdays/forecastday["+i+"]/conditions");
             conditions[i] = (String) expr.evaluate(doc, XPathConstants.STRING);
-            System.out.println("Day: "+ days[i] +" TempCHigh: "+temperatureCHigh[i] +" TempClow: "+temperatureCLow[i]+
-                    " icon: "+icon[i]+ " conditions: "+conditions[i]);
+            expr = xpath.compile("/response/forecast/simpleforecast/forecastdays/forecastday["+i+"]/qpf_allday/mm");
+            precip[i] = (String) expr.evaluate(doc, XPathConstants.STRING);
+            expr = xpath.compile("/response/forecast/simpleforecast/forecastdays/forecastday["+i+"]/avewind/kph");
+            wind[i] = (String) expr.evaluate(doc, XPathConstants.STRING);
         }
         return true;
+    }
+
+    public static String getPrecip(int n) {
+        return precip[n];
+    }
+
+    public static String getWind(int n) {
+        return wind[n];
     }
 
     public static String getIMG() {
@@ -158,6 +171,30 @@ public class Location {
 
     public static String getOBSERVATION_TIME() {
         return OBSERVATION_TIME;
+    }
+
+    public static String getICON() {
+        return ICON;
+    }
+
+    public static String getIcon(int n) {
+        return icon[n];
+    }
+
+    public static String getConditions(int n) {
+        return conditions[n];
+    }
+
+    public static String getTemperatureCHigh(int n) {
+        return temperatureCHigh[n];
+    }
+
+    public static String getTemperatureCLow(int n) {
+        return temperatureCLow[n];
+    }
+
+    public static String getDays(int n) {
+        return days[n];
     }
 
     public static boolean isSTATUS() {

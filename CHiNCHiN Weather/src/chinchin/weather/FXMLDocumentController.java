@@ -50,13 +50,15 @@ public class FXMLDocumentController implements Initializable {
     private TextField adress;
     
     @FXML
-    private Label tempreatureC , weather , observationTime , location , label , wind , humidity , dewPoint , pressure , visibility , uvIndex;
+    private Label tempreatureC , weather , observationTime , location , label , wind , humidity , dewPoint , pressure , visibility 
+            , c1high , c2high , c3high , c4high , c1low , c2low ,
+            c3low, c4low, desc1 , desc2, desc3, desc4, uvIndex ,day1,day2,day3,day4 , wind1, wind2,wind3,wind4 , precip1,precip2,precip3,precip4;
     
     @FXML
     private Button ok;
     
     @FXML
-    private ImageView weatherImg , loadingImg;
+    private ImageView weatherImg , icon1 , icon2 , icon3 , icon4;
     
     @FXML
     private Pane inputPane , forecast;
@@ -101,7 +103,65 @@ public class FXMLDocumentController implements Initializable {
                     visibility.setAlignment(Pos.CENTER_RIGHT);
                     uvIndex.setText(City.getUV_INDEX());
                     uvIndex.setAlignment(Pos.CENTER_RIGHT);
-                    City.getFutureForecast();
+                    if (City.getFutureForecast())
+                    {
+                        int i = 1;
+                        while (i != 5)
+                        {
+                            day1.setText(City.getDays(i));
+                            c1high.setText(City.getTemperatureCHigh(i)+"°");
+                            c1high.setAlignment(Pos.CENTER);
+                            c1low.setText(City.getTemperatureCLow(i)+"°");
+                            c1low.setAlignment(Pos.CENTER);
+                            image = new Image(City.getIcon(i));
+                            icon1.setImage(image);
+                            desc1.setText(City.getConditions(i));
+                            wind1.setText(City.getWind(i));
+                            wind1.setAlignment(Pos.CENTER);
+                            precip1.setText(City.getPrecip(i)+"%");
+                            precip1.setAlignment(Pos.CENTER);
+                            i++;
+                            day2.setText(City.getDays(i));
+                            c2high.setText(City.getTemperatureCHigh(i)+"°");
+                            c2high.setAlignment(Pos.CENTER);
+                            c2low.setText(City.getTemperatureCLow(i)+"°");
+                            c2low.setAlignment(Pos.CENTER);
+                            image = new Image(City.getIcon(i));
+                            icon2.setImage(image);
+                            desc2.setText(City.getConditions(i));
+                            wind2.setText(City.getWind(i));
+                            wind2.setAlignment(Pos.CENTER);
+                            precip2.setText(City.getPrecip(i)+"%");
+                            precip2.setAlignment(Pos.CENTER);
+                            i++;
+                            day3.setText(City.getDays(i));
+                            c3high.setText(City.getTemperatureCHigh(i)+"°");
+                            c3high.setAlignment(Pos.CENTER);
+                            c3low.setText(City.getTemperatureCLow(i)+"°");
+                            c3low.setAlignment(Pos.CENTER);
+                            image = new Image(City.getIcon(i));
+                            icon3.setImage(image);
+                            desc3.setText(City.getConditions(i));
+                            wind3.setText(City.getWind(i));
+                            wind3.setAlignment(Pos.CENTER);
+                            precip3.setText(City.getPrecip(i)+"%");
+                            precip3.setAlignment(Pos.CENTER);
+                            i++;
+                            day4.setText(City.getDays(i));
+                            c4high.setText(City.getTemperatureCHigh(i)+"°");
+                            c4high.setAlignment(Pos.CENTER);
+                            c4low.setText(City.getTemperatureCLow(i)+"°");
+                            c4low.setAlignment(Pos.CENTER);
+                            image = new Image(City.getIcon(i));
+                            icon4.setImage(image);
+                            desc4.setText(City.getConditions(i));
+                            wind4.setText(City.getWind(i));
+                            wind4.setAlignment(Pos.CENTER);
+                            precip4.setText(City.getPrecip(i)+"%");
+                            precip4.setAlignment(Pos.CENTER);
+                            i++;
+                        }
+                    }
                 }
                 
                 //FADE ON
