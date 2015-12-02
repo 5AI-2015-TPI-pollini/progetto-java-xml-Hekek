@@ -5,17 +5,14 @@
  */
 package chinchin.weather;
 
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.Authenticator;
 import java.net.MalformedURLException;
-import java.net.PasswordAuthentication;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -28,8 +25,12 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathExpressionException;
+import org.json.simple.JSONObject;
 import org.xml.sax.SAXException;
 
 /**
@@ -61,7 +62,7 @@ public class FXMLDocumentController implements Initializable {
     private ImageView weatherImg , icon1 , icon2 , icon3 , icon4;
     
     @FXML
-    private Pane inputPane , forecast;
+    private Pane inputPane , forecast , window;
     
     public Location City = new Location();
     
@@ -181,6 +182,8 @@ public class FXMLDocumentController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        window.setStyle("-fx-background-image: url('/Images/background.jpeg'); -fx-background-repeat: stretch; -fx-background-size: 900 600;\n" +
+"    -fx-background-position: center center; ");
         forecast.setVisible(false);
         //loadingImg.setVisible(false);
         /*try {
