@@ -19,10 +19,17 @@ import java.net.UnknownHostException;
 public class Connection {
     int timeout = 2000;
     
+    /**
+     * Create an empty connection object
+     */
     public Connection(){
-        
     }
     
+    /**
+     * A function to test the connection
+     * @throws UnknownHostException
+     * @throws IOException 
+     */
     public void testConnection() throws UnknownHostException, IOException{
         InetAddress[] addresses = InetAddress.getAllByName("www.google.com");
         for (InetAddress address : addresses) {
@@ -33,6 +40,13 @@ public class Connection {
         }
     }
     
+    /**
+     * A function that set the proxy 
+     * @param ip server IP
+     * @param port  port number
+     * @param user user name for authentication
+     * @param pw user password for authentication 
+     */
     public void setProxy(String ip , String port , String user , String pw){
         System.setProperty("proxySet", "true");
         System.setProperty("http.proxyHost", ip);
@@ -40,9 +54,8 @@ public class Connection {
         Authenticator.setDefault(new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
-                System.out.println("Funge");
                 return new PasswordAuthentication(user,pw.toCharArray());
             }
-        });  
+        }); 
     }
 }

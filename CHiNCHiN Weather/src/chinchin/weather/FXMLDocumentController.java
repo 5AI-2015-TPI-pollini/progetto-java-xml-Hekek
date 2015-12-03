@@ -45,11 +45,6 @@ import org.xml.sax.SAXException;
  */
 public class FXMLDocumentController implements Initializable {
     
-    private static String STATUS ;
-    private static String FORMATTED_ADDRESS ;
-    private static String SHORT_NAME ;
-    private static String LONG ;
-    private static String LAT ;
     private static String IP;
     private static String PORT;
     private static String USER;
@@ -80,7 +75,13 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private Pane inputPane , forecast , window;
     
+    /**
+     * Create a new location to use 
+     */
     public Location city = new Location();
+    /**
+     * Create a new connection to use functions of the class
+     */
     public Connection connection = new Connection();
     
     
@@ -138,7 +139,10 @@ public class FXMLDocumentController implements Initializable {
         }
     }
     
-    
+    /**
+     * Function to use the fade off effect in GUI 
+     * @param object could be a label , image , text field and others 
+     */
     public void fadeOff(Node object){
         FadeTransition fadeTransitionOff = new FadeTransition(Duration.millis(1000), object);
         fadeTransitionOff.setFromValue(1.0);
@@ -146,6 +150,10 @@ public class FXMLDocumentController implements Initializable {
         fadeTransitionOff.play();
     }
     
+    /**
+     * Function to use the fade oon effect in GUI 
+     * @param object could be a label , image , text field and others 
+     */
     public void fadeOn(Node object){
         forecast.setVisible(true);
         FadeTransition fadeTransition 
@@ -155,6 +163,9 @@ public class FXMLDocumentController implements Initializable {
         fadeTransition.play();
     }
     
+    /**
+     * Function that set the GUI elements for weekly forecast getting info from the location class
+     */
     public void setWeekGuiElements(){
         int i = 1;
         Image image ;
@@ -168,7 +179,7 @@ public class FXMLDocumentController implements Initializable {
             image = new Image(city.getIcon(i));
             icon1.setImage(image);
             desc1.setText(city.getConditions(i));
-            wind1.setText(city.getWind(i));
+            wind1.setText(city.getWind(i)+" KPH");
             wind1.setAlignment(Pos.CENTER);
             precip1.setText(city.getPrecip(i)+"%");
             precip1.setAlignment(Pos.CENTER);
@@ -181,7 +192,7 @@ public class FXMLDocumentController implements Initializable {
             image = new Image(city.getIcon(i));
             icon2.setImage(image);
             desc2.setText(city.getConditions(i));
-            wind2.setText(city.getWind(i));
+            wind2.setText(city.getWind(i)+" KPH");
             wind2.setAlignment(Pos.CENTER);
             precip2.setText(city.getPrecip(i)+"%");
             precip2.setAlignment(Pos.CENTER);
@@ -194,7 +205,7 @@ public class FXMLDocumentController implements Initializable {
             image = new Image(city.getIcon(i));
             icon3.setImage(image);
             desc3.setText(city.getConditions(i));
-            wind3.setText(city.getWind(i));
+            wind3.setText(city.getWind(i)+" KPH");
             wind3.setAlignment(Pos.CENTER);
             precip3.setText(city.getPrecip(i)+"%");
             precip3.setAlignment(Pos.CENTER);
@@ -207,7 +218,7 @@ public class FXMLDocumentController implements Initializable {
             image = new Image(city.getIcon(i));
             icon4.setImage(image);
             desc4.setText(city.getConditions(i));
-            wind4.setText(city.getWind(i));
+            wind4.setText(city.getWind(i)+" KPH");
             wind4.setAlignment(Pos.CENTER);
             precip4.setText(city.getPrecip(i)+"%");
             precip4.setAlignment(Pos.CENTER);
@@ -215,6 +226,9 @@ public class FXMLDocumentController implements Initializable {
         }
     }
     
+    /**
+     * Function that set the GUI elements for Today forecast getting info from the location class
+     */
     public void setTodayGuiElements(){
         System.out.println(city);
         location.setText(city.getFORMATTED_ADDRESS());
@@ -223,15 +237,15 @@ public class FXMLDocumentController implements Initializable {
         Image image = new Image(city.getIMG());
         weatherImg.setImage(image);
         tempreatureC.setText(city.getTEMPRETURE_C());
-        wind.setText(city.getWIND_MPH());
+        wind.setText(city.getWIND_MPH()+" MPH");
         wind.setAlignment(Pos.CENTER_RIGHT);
         humidity.setText(city.getHUMIDITY());
         humidity.setAlignment(Pos.CENTER_RIGHT);
-        dewPoint.setText(city.getDEW_POINT_C());
+        dewPoint.setText(city.getDEW_POINT_C()+"°");
         dewPoint.setAlignment(Pos.CENTER_RIGHT);
         pressure.setText(city.getPRESSURE());
         pressure.setAlignment(Pos.CENTER_RIGHT);
-        visibility.setText(city.getPRESSURE());
+        visibility.setText(city.getVISIBILITY());
         visibility.setAlignment(Pos.CENTER_RIGHT);
         uvIndex.setText(city.getUV_INDEX());
         uvIndex.setAlignment(Pos.CENTER_RIGHT);
