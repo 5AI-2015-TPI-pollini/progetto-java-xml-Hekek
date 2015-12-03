@@ -80,7 +80,8 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private Pane inputPane , forecast , window;
     
-    public Location City = new Location();
+    public Location city = new Location();
+    public Connection connection = new Connection();
     
     
     @FXML
@@ -103,16 +104,7 @@ public class FXMLDocumentController implements Initializable {
                 PORT = portField.getText();
                 USER = userField.getText();
                 PW = pwField.getText();
-                System.setProperty("proxySet", "true");
-                System.setProperty("http.proxyHost", IP);
-                System.setProperty("http.proxyPort", PORT);
-                Authenticator.setDefault(new Authenticator() {
-                    @Override
-                    protected PasswordAuthentication getPasswordAuthentication() {
-                        System.out.println("Funge");
-                        return new PasswordAuthentication(USER,PW.toCharArray());
-                    }
-                });
+                connection.setProxy(IP, PORT, USER, PW);
                 ipField.setVisible(false);
                 pwField.setVisible(false);
                 portField.setVisible(false);
@@ -123,14 +115,14 @@ public class FXMLDocumentController implements Initializable {
         if (event.getSource().equals(ok))
         {   
             fadeOff(forecast);
-            City.setADDRESS(adress.getText());
-            if (City.Status())
+            city.setADDRESS(adress.getText());
+            if (city.Status())
             {
                 label.setText("ADRESS IS OK");
-                if(City.getTodayForecast())
+                if(city.getTodayForecast())
                 {
-                   
-                    if (City.getFutureForecast())
+                    setTodayGuiElements();
+                    if (city.getFutureForecast())
                     {
                         setWeekGuiElements();
                     }
@@ -141,7 +133,7 @@ public class FXMLDocumentController implements Initializable {
             }
             else 
             {
-                label.setText("ADRESS IS NOT OK");
+                label.setText("ADRESS IS NOT OK OR NO INPUT");
             }
         }
     }
@@ -157,7 +149,7 @@ public class FXMLDocumentController implements Initializable {
     public void fadeOn(Node object){
         forecast.setVisible(true);
         FadeTransition fadeTransition 
-                = new FadeTransition(Duration.millis(500), forecast);
+                = new FadeTransition(Duration.millis(1000), forecast);
         fadeTransition.setFromValue(0.0);
         fadeTransition.setToValue(1.0);
         fadeTransition.play();
@@ -168,87 +160,86 @@ public class FXMLDocumentController implements Initializable {
         Image image ;
         while (i != 5)
         {
-            day1.setText(City.getDays(i));
-            c1high.setText(City.getTemperatureCHigh(i)+"°");
+            day1.setText(city.getDays(i));
+            c1high.setText(city.getTemperatureCHigh(i)+"°");
             c1high.setAlignment(Pos.CENTER);
-            c1low.setText(City.getTemperatureCLow(i)+"°");
+            c1low.setText(city.getTemperatureCLow(i)+"°");
             c1low.setAlignment(Pos.CENTER);
-            image = new Image(City.getIcon(i));
+            image = new Image(city.getIcon(i));
             icon1.setImage(image);
-            desc1.setText(City.getConditions(i));
-            wind1.setText(City.getWind(i));
+            desc1.setText(city.getConditions(i));
+            wind1.setText(city.getWind(i));
             wind1.setAlignment(Pos.CENTER);
-            precip1.setText(City.getPrecip(i)+"%");
+            precip1.setText(city.getPrecip(i)+"%");
             precip1.setAlignment(Pos.CENTER);
             i++;
-            day2.setText(City.getDays(i));
-            c2high.setText(City.getTemperatureCHigh(i)+"°");
+            day2.setText(city.getDays(i));
+            c2high.setText(city.getTemperatureCHigh(i)+"°");
             c2high.setAlignment(Pos.CENTER);
-            c2low.setText(City.getTemperatureCLow(i)+"°");
+            c2low.setText(city.getTemperatureCLow(i)+"°");
             c2low.setAlignment(Pos.CENTER);
-            image = new Image(City.getIcon(i));
+            image = new Image(city.getIcon(i));
             icon2.setImage(image);
-            desc2.setText(City.getConditions(i));
-            wind2.setText(City.getWind(i));
+            desc2.setText(city.getConditions(i));
+            wind2.setText(city.getWind(i));
             wind2.setAlignment(Pos.CENTER);
-            precip2.setText(City.getPrecip(i)+"%");
+            precip2.setText(city.getPrecip(i)+"%");
             precip2.setAlignment(Pos.CENTER);
             i++;
-            day3.setText(City.getDays(i));
-            c3high.setText(City.getTemperatureCHigh(i)+"°");
+            day3.setText(city.getDays(i));
+            c3high.setText(city.getTemperatureCHigh(i)+"°");
             c3high.setAlignment(Pos.CENTER);
-            c3low.setText(City.getTemperatureCLow(i)+"°");
+            c3low.setText(city.getTemperatureCLow(i)+"°");
             c3low.setAlignment(Pos.CENTER);
-            image = new Image(City.getIcon(i));
+            image = new Image(city.getIcon(i));
             icon3.setImage(image);
-            desc3.setText(City.getConditions(i));
-            wind3.setText(City.getWind(i));
+            desc3.setText(city.getConditions(i));
+            wind3.setText(city.getWind(i));
             wind3.setAlignment(Pos.CENTER);
-            precip3.setText(City.getPrecip(i)+"%");
+            precip3.setText(city.getPrecip(i)+"%");
             precip3.setAlignment(Pos.CENTER);
             i++;
-            day4.setText(City.getDays(i));
-            c4high.setText(City.getTemperatureCHigh(i)+"°");
+            day4.setText(city.getDays(i));
+            c4high.setText(city.getTemperatureCHigh(i)+"°");
             c4high.setAlignment(Pos.CENTER);
-            c4low.setText(City.getTemperatureCLow(i)+"°");
+            c4low.setText(city.getTemperatureCLow(i)+"°");
             c4low.setAlignment(Pos.CENTER);
-            image = new Image(City.getIcon(i));
+            image = new Image(city.getIcon(i));
             icon4.setImage(image);
-            desc4.setText(City.getConditions(i));
-            wind4.setText(City.getWind(i));
+            desc4.setText(city.getConditions(i));
+            wind4.setText(city.getWind(i));
             wind4.setAlignment(Pos.CENTER);
-            precip4.setText(City.getPrecip(i)+"%");
+            precip4.setText(city.getPrecip(i)+"%");
             precip4.setAlignment(Pos.CENTER);
             i++;
         }
     }
     
     public void setTodayGuiElements(){
-        System.out.println(City);
-        location.setText(City.getFORMATTED_ADDRESS());
-        observationTime.setText(City.getOBSERVATION_TIME());
-        weather.setText(City.getWEATHER());
-        Image image = new Image(City.getIMG());
+        System.out.println(city);
+        location.setText(city.getFORMATTED_ADDRESS());
+        observationTime.setText(city.getOBSERVATION_TIME());
+        weather.setText(city.getWEATHER());
+        Image image = new Image(city.getIMG());
         weatherImg.setImage(image);
-        tempreatureC.setText(City.getTEMPRETURE_C());
-        wind.setText(City.getWIND_MPH());
+        tempreatureC.setText(city.getTEMPRETURE_C());
+        wind.setText(city.getWIND_MPH());
         wind.setAlignment(Pos.CENTER_RIGHT);
-        humidity.setText(City.getHUMIDITY());
+        humidity.setText(city.getHUMIDITY());
         humidity.setAlignment(Pos.CENTER_RIGHT);
-        dewPoint.setText(City.getDEW_POINT_C());
+        dewPoint.setText(city.getDEW_POINT_C());
         dewPoint.setAlignment(Pos.CENTER_RIGHT);
-        pressure.setText(City.getPRESSURE());
+        pressure.setText(city.getPRESSURE());
         pressure.setAlignment(Pos.CENTER_RIGHT);
-        visibility.setText(City.getPRESSURE());
+        visibility.setText(city.getPRESSURE());
         visibility.setAlignment(Pos.CENTER_RIGHT);
-        uvIndex.setText(City.getUV_INDEX());
+        uvIndex.setText(city.getUV_INDEX());
         uvIndex.setAlignment(Pos.CENTER_RIGHT);
     }
     
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
         window.setStyle("-fx-background-image: url('/Images/background.jpeg'); -fx-background-repeat: stretch; -fx-background-size: 900 600;\n" +
 "    -fx-background-position: center center; ");
         forecast.setVisible(false);

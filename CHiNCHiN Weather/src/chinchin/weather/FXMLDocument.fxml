@@ -40,6 +40,11 @@
                   <Font name="MyriadPro-Regular" size="11.0" />
                </font>
             </TextField>
+            <TextField fx:id="pwField" layoutX="747.0" layoutY="14.0" prefHeight="22.0" prefWidth="101.0" promptText="Insert PASSWORD">
+               <font>
+                  <Font name="MyriadPro-Regular" size="11.0" />
+               </font>
+            </TextField>
             <Button fx:id="settings" layoutX="856.0" layoutY="13.0" mnemonicParsing="false" onAction="#handleButtonAction" style="-fx-background-color: white; -fx-opacity: 0.8;" />
             <Pane fx:id="forecast" layoutX="-8.0" layoutY="42.0" prefHeight="293.0" prefWidth="907.0">
                <children>
@@ -180,7 +185,7 @@
                               <Font name="MyriadPro-Regular" size="13.0" />
                            </font>
                         </Label>
-                        <Label fx:id="desc1" layoutX="262.0" layoutY="9.0" prefHeight="17.0" prefWidth="69.0">
+                        <Label fx:id="desc1" layoutX="262.0" layoutY="9.0" prefHeight="17.0" prefWidth="87.0">
                            <font>
                               <Font name="MyriadPro-Regular" size="11.0" />
                            </font>
@@ -215,7 +220,7 @@
                               <Font name="MyriadPro-Regular" size="13.0" />
                            </font>
                         </Label>
-                        <Label fx:id="desc2" layoutX="262.0" layoutY="9.0" prefHeight="17.0" prefWidth="69.0">
+                        <Label fx:id="desc2" layoutX="262.0" layoutY="9.0" prefHeight="17.0" prefWidth="87.0">
                            <font>
                               <Font name="MyriadPro-Regular" size="11.0" />
                            </font>
@@ -250,7 +255,7 @@
                               <Font name="MyriadPro-Regular" size="13.0" />
                            </font>
                         </Label>
-                        <Label fx:id="desc3" layoutX="262.0" layoutY="9.0" prefHeight="17.0" prefWidth="69.0">
+                        <Label fx:id="desc3" layoutX="262.0" layoutY="9.0" prefHeight="17.0" prefWidth="87.0">
                            <font>
                               <Font name="MyriadPro-Regular" size="11.0" />
                            </font>
@@ -285,7 +290,7 @@
                               <Font name="MyriadPro-Regular" size="13.0" />
                            </font>
                         </Label>
-                        <Label fx:id="desc4" layoutX="262.0" layoutY="9.0" prefHeight="17.0" prefWidth="69.0">
+                        <Label fx:id="desc4" layoutX="262.0" layoutY="9.0" prefHeight="17.0" prefWidth="87.0">
                            <font>
                               <Font name="MyriadPro-Regular" size="11.0" />
                            </font>
@@ -305,11 +310,6 @@
                   </Pane>
                </children>
             </Pane>
-            <TextField fx:id="pwField" layoutX="747.0" layoutY="14.0" prefHeight="22.0" prefWidth="101.0" promptText="Insert PASSWORD">
-               <font>
-                  <Font name="MyriadPro-Regular" size="11.0" />
-               </font>
-            </TextField>
          </children>
       </Pane>
    </children>
